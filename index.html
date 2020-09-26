@@ -1,0 +1,31 @@
+<html>
+  <header><title>Socket Api</title></header>
+  <body>
+    Socket Api Notifier is Live.
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      const socket = io("https://172.16.14.150:3004");
+      const constants = {
+        JOIN: "join",
+        SENDDATA: "sendData",
+        DUMMY: "dummyTicket",
+        MESSAGE: 'message'
+      };
+
+      const { DUMMY, JOIN, SENDDATA, MESSAGE } = constants;
+
+      socket.emit(JOIN, { ticketId: DUMMY }, (error) => {
+        if(error){
+          console.log(error)
+        }
+      });
+      socket.on(MESSAGE, message => {
+        console.log(message)
+      })
+
+      socket.on(SENDDATA, ticketId => {
+        console.log("Data from server: ", ticketId);
+      });
+    </script>
+  </body>
+</html>
